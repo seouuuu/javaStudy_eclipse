@@ -44,6 +44,14 @@ public class StudentTest {
 		}
 		System.out.println(s);
 		
+		String []n = new [2];
+		String []n2 = new [2];
+		String []m = new [2];
+		int []g = new [2];
+		double []c = new[2];
+		
+		
+		
 		
 		
 		
