@@ -15,55 +15,41 @@ public class Test {
 		*/
 		
 		//6번
-		/*
-		GameCharacter h1 = new Hobitt();
-		GameCharacter h2 = new Hobitt();		
-		GameCharacter t1 = new Titan();
-		GameCharacter t2 = new Titan();
-		GameCharacter s1 = new Sorcerer();
-		GameCharacter s2 = new Sorcerer();
-		
-		GameCharacter []arr = {h1,h2,t1,t2,s1,s2};
-		*/
+		GameCharacter []arr = new GameCharacter[6];
+		arr[0] = new Hobitt();
+		arr[1] = new Hobitt();
+		arr[2] = new Titan();
+		arr[3] = new Titan();
+		arr[4] = new Sorcerer();
+		arr[5] = new Sorcerer();
 		
 		//7번
 		/*
-		for(GameCharacter g:arr) {
-			if( g==h1 | g==h2 ) {
-				((Hobitt)g).draw();
-			} else if ( g==t1 | g==t2 ) {
-				((Titan)g).draw();
-			} else if (g == s1 | g==s2)
-			   ((Sorcerer)g).draw();
-			   
+		for(int i=0 ; i<arr.length; i++) {
+			switch(i) {
+			case 0:
+			case 1: ((Hobitt)arr[i]).draw();break;
+			case 2:
+			case 3: ((Titan)arr[i]).draw();break;
+			case 4:
+			case 5: ((Sorcerer)arr[i]).draw();break;
+			}
+		}
+		*/
+		/*	   
 	    호빗을 그립니다.
 		호빗을 그립니다.
 		타이탄을 그립니다.
 		타이탄을 그립니다.
 		주술사를 그립니다.
 		주술사를 그립니다.
-		 */
+		*/
+		
+		//8번
+		//drawAll.arr();
 		}
 	
-	//8번
-	public void drawAll(){
-		GameCharacter h1 = new Hobitt();
-		GameCharacter h2 = new Hobitt();		
-		GameCharacter t1 = new Titan();
-		GameCharacter t2 = new Titan();
-		GameCharacter s1 = new Sorcerer();
-		GameCharacter s2 = new Sorcerer();
 		
-		GameCharacter []arr = {h1,h2,t1,t2,s1,s2};
-		for(GameCharacter g:arr) {
-			if( g==h1 | g==h2 ) {
-				((Hobitt)g).draw();
-			} else if ( g==t1 | g==t2 ) {
-				((Titan)g).draw();
-			} else if (g == s1 | g==s2)
-			   ((Sorcerer)g).draw();
-		}
 	}
 	
 	
-}
