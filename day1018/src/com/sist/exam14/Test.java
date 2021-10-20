@@ -4,7 +4,8 @@ public class Test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		/*2~5번
+		//2~5번
+		/*
 		GameCharacter g1 = new Hobitt();
 		GameCharacter g2 = new Titan();
 		GameCharacter g3 = new Sorcerer();
@@ -12,6 +13,11 @@ public class Test {
 		g1.getLife();
 		//g1.getRing();         //오류
 		((Hobitt)g1).getRing(); //가능
+		
+		g2.getLife();
+		((Titan)g2).getRing();
+		g3.getLife();
+		((Sorcerer)g3).getRing();
 		*/
 		
 		//6번
@@ -48,8 +54,6 @@ public class Test {
 		//8번
 		//drawAll.arr();
 		}
-	
-		
 	}
 	
 	

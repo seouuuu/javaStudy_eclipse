@@ -1,5 +1,6 @@
 package com.sist.exam11;
 
+
 public class MyFrameTest {
 
 	public static void main(String[] args) {

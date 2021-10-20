@@ -1,16 +1,18 @@
-package com.sist.exam11;
-
+package com.sist.exam01;
 import javax.swing.JFrame;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class MyFrame extends JFrame implements MouseListener{
-	public MyFrame(String title) {
-		super(title);
+	
+	public MyFrame() {
+		setSize(400,300);
+		setVisible(true);
+		//마우스이벤트등록
 		addMouseListener(this);
 	}
-
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -40,4 +42,9 @@ public class MyFrame extends JFrame implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public static void main(String[] args) {
+		new MyFrame();
+	}
+	
 }
