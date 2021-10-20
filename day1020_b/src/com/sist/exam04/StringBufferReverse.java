@@ -8,5 +8,4 @@ public class StringBufferReverse {
 		System.out.println(data);   //olleh
 
 	}
-
 }
