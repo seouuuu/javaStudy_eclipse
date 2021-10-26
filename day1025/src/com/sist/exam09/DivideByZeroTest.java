@@ -21,6 +21,7 @@ public class DivideByZeroTest {
 			System.out.println(result);
 		}catch(InputMismatchException i) {
 			System.out.println("정수를 입력하세요");
+			System.out.println(i.getMessage());
 		}catch(ArithmeticException a){
 			System.out.println("0으로 나눌 수 없습니다.");
 		}finally {                             //3번

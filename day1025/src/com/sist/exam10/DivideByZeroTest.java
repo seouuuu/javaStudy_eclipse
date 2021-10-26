@@ -17,18 +17,26 @@ public class DivideByZeroTest {
 			System.out.println("두 번째 정수: ");
 			number2 = sc.nextInt();
 			
-			result = number1 / number2;
-			System.out.println(result);	
+		 quotient(number1,number2);
+				
+			
+			
 		}catch(DivideByZeroException d) {
 			System.out.println("예외발생:"+d.getMessage());
 		}
 	}
 	
-	public static int quotient(int numerator, int denominator) throws DivideByZeroException{
+	public static void  quotient(int numerator, int denominator) throws DivideByZeroException{
+		
+		
+		
 		if(denominator == 0) {
 			throw new DivideByZeroException("0으로 나눌 수 없습니다.");
 		}
-		return numerator/denominator;
+		
+		int result = numerator / denominator;
+		System.out.println(result);
+		
 	}
 }
 

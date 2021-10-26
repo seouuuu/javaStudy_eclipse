@@ -4,8 +4,9 @@ public class MyDateTest {
 
 	public static void main(String[] args) {
 		try {
-			MyDate date = new MyDate();
-			date.mydate("2021/10/25");
+			String data =null;
+			MyDate date = new MyDate(data);
+			
 			
 			
 			

@@ -13,10 +13,11 @@ public class BankAccount  {
 	}
 	
 	public void withdraw(int n) throws NegativeBalanceException{
-		balance -=n;
+		
 		if(n>balance) {
 			throw new NegativeBalanceException("인출금액이 잔액을 초과합니다.");
 		}
+		balance -=n;
 	}
 	
 }
