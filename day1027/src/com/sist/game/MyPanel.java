@@ -4,16 +4,20 @@ import javax.swing.JPanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.awt.Graphics;
 
 //적,미사일,우주선을 동시에 담을수 있는 "패널"클래스를 만듬
 //키보드가 눌러지는 이벤트를 처리하기 위해 KeyListener도 구현
 public class MyPanel extends JPanel implements KeyListener {
 	
-	//적,미사일,우주선을 패널의 멤버변수로 선언
-	Enermy enermy;
+	//미사일,우주선을 패널의 멤버변수로 선언
+	//Enermy enermy;
 	SpaceShip spaceship;
 	Missile missile;
+	
+	//여러개의 적을 만들기 위해 ArrayList 만들기
+	ArrayList<Enermy> enermyList;
 	
 	//생성자에 즉,패널이 생성되고 동시에 동작
 	public MyPanel() {
@@ -24,7 +28,18 @@ public class MyPanel extends JPanel implements KeyListener {
 		//패널은 화면구성요소 중 원래 키보드로부터 입력을 받아들이는 용도가 아니기 때문에 
 		//키보드로부터 입력을 받아들이게 하려면 패널에 일단 포커스를 설정해야 함
 		
-		enermy = new Enermy("enermy.png");				//이미지파일명을 가지고 적 객체 생성
+		//enermy = new Enermy("enermy.png");				//이미지파일명을 가지고 적 객체 생성
+		
+		//여러개의 적을 담기 위한 ArrayList 객체 생성
+		enermyList = new ArrayList<Enermy>();
+		
+		//적을 5개 만들기(만들어서 리스트에 담기)
+		enermyList.add(new Enermy("enermy.png"));
+		enermyList.add(new Enermy("enermy.png"));
+		enermyList.add(new Enermy("enermy.png"));
+		enermyList.add(new Enermy("enermy.png"));
+		enermyList.add(new Enermy("enermy.png"));
+		
 		spaceship = new SpaceShip("spaceship.png");		//이미지파일명을 가지고 우주선 객체 생성
 		missile = new Missile("missile.png");			//이미지파일명을 가지고 미사일 객체 생성
 		
@@ -34,14 +49,23 @@ public class MyPanel extends JPanel implements KeyListener {
 		class MyThread extends Thread{				//Thread를 상속받아 멀티쓰레드 구현
 			public void run() {						//run을 오버라이딩하여 동시에 실행시킬 명령어(들) 작성
 				while(true) {		//계속 반복하여 적,미사일,우주선이 움직이도록 하기 위해 while(true)이용
-					enermy.update();		//적을 움직이기 위해 위치를 변경하는 메소드 호출
-					//spaceship.update(); 	//우주선을 움직이기 위해 위치를 변경하는 메소드 호출
-					//우주선은 키보드가 눌러진 방향으로 한번에 한번 움직이도록 되어있기 때문에 지금은 호출하지 않아도 됨
 					
 					missile.update();		//미사일을 움직이기 위해 미사일의 위치를 변경하는 메소드 호출
 					
+					//리스트에 담긴 적의 수만큼 반복하여 적의 위치 변경
+					for(Enermy enermy : enermyList) {
+						enermy.update();
+						enermy.crush(missile);	//적이 미사일에 맞았는지 판별하여 없애는 메소드 호출
+					}
+					
+					//enermy.update();		//적을 움직이기 위해 위치를 변경하는 메소드 호출
+					//spaceship.update(); 	//우주선을 움직이기 위해 위치를 변경하는 메소드 호출
+					//우주선은 키보드가 눌러진 방향으로 한번에 한번 움직이도록 되어있기 때문에 지금은 호출하지 않아도 됨
+					
+					//missile.update();		//미사일을 움직이기 위해 미사일의 위치를 변경하는 메소드 호출
+					
 					//적이 미사일에 맞았는지 판별하여 없애는 메소드 호출
-					enermy.crush(missile);
+					//enermy.crush(missile);
 					
 					repaint();				//적,미사일,우주선의 변경된 위치에 다시 그리기 위한 요청
 											//화면에 그래픽을 그려주는 메소드는 paint(Component) 메소드
@@ -68,7 +92,9 @@ public class MyPanel extends JPanel implements KeyListener {
 		super.paint(g);
 		
 		//그래픽을 그리기 위한 그래픽스의 g를 적,우주선,미사일에 전달하여 다시 변경된 위치에 그림
-		enermy.draw(g);			
+		for(Enermy enermy : enermyList) {
+			enermy.draw(g);
+		}
 		spaceship.draw(g);
 		missile.draw(g);
 	}
@@ -88,7 +114,6 @@ public class MyPanel extends JPanel implements KeyListener {
 		//눌러진 키보드이벤트의 정보와 우주선의 위치를 미사일에 전달
 	}
 	
-
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
