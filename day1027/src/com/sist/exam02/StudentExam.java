@@ -33,11 +33,13 @@ public class StudentExam {
 			int kor = Integer.parseInt(st.nextToken());
 			int eng = Integer.parseInt(st.nextToken());
 			int math = Integer.parseInt(st.nextToken());
-			
 	
 			int tot = kor + eng + math;
 			double avg = tot/3.0;
 			
+			System.out.println(name + "의 국어: " + kor);
+			System.out.println(name + "의 영어: " + eng);
+			System.out.println(name + "의 수학: " + math);
 			System.out.println(name + "의 총점: " + tot);
 			System.out.println(name + "의 평균: " + avg);
 			
