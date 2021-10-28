@@ -143,7 +143,6 @@ public class MyFrame extends JFrame implements ActionListener {
 		}else if(cmd.equals("ªı∆ƒ¿œ")) {
 			
 			try {
-				
 				MyFrame mf = new MyFrame();
 				
 			}catch (Exception ex) {
