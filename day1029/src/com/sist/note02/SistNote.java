@@ -56,13 +56,13 @@ public class SistNote extends JFrame implements ActionListener{
 		if(cmd.equals("새파일")) {
 			File file = jfc.getSelectedFile();
 			try {
-				JOptionPane.showMessageDialog(this, "저장하시겠습니까?");
-				int re = jfc.showSaveDialog(this);
-				System.out.println(re);
+				int re = JOptionPane.showConfirmDialog(this, "저장하시겠습니까?","저장", JOptionPane.YES_NO_CANCEL_OPTION);
+				//System.out.println(re);
+				
 				if(re == 0) {
 					Save();
 				}
-				
+
 	        	jta.setText("");
 				setTitle("제목없음");
 				
@@ -71,14 +71,20 @@ public class SistNote extends JFrame implements ActionListener{
 			}
 	
 		}else if(cmd.equals("열기")) {
-			JOptionPane.showMessageDialog(this, "저장하시겠습니까?");
-			int re = jfc.showSaveDialog(this);
-			if(re == 0) {
-				Save();
+			try {
+				int re = JOptionPane.showConfirmDialog(this, "저장하시겠습니까?","저장", JOptionPane.YES_NO_CANCEL_OPTION);
+				//System.out.println(re);
+				
+				if(re == 0) {
+					Save();
+				}
+			
+				Open();
+
+			}catch (Exception ex) {
+				System.out.println("예외발생:"+ex.getMessage());
 			}
-			
-			Open();
-			
+		
 		}else if(cmd.equals("저장")) {
 			
 			Save();
