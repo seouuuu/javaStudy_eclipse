@@ -91,7 +91,5 @@ public class CalcTest02 extends JFrame implements ActionListener{
 			result.setText(result.getText() + cmd);
 		}
 		
-		
-		
 	}
 }
