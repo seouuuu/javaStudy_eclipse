@@ -1,4 +1,4 @@
-package com.sist.echo03;
+package com.sist.tcp;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -7,17 +7,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import java.awt.BorderLayout;
-
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 
-public class UDPChatClient extends JFrame implements ActionListener, Runnable{
+public class TCPChatClient extends JFrame implements ActionListener{
 
 	//대화내용을 출력할 TextArea를 맴버변수로 만들기
 	JTextArea jta;
@@ -26,10 +22,10 @@ public class UDPChatClient extends JFrame implements ActionListener, Runnable{
 	JTextField jtf;
 	
 	//입출력스트림을 맴버변수로 만들기
-	DatagramSocket ds;
-	DatagramPacket dp;
+	InputStream is;
+	OutputStream os;
 	
-	public UDPChatClient(){
+	public TCPChatClient(){
 		
 		//맴버변수 TextArea와 TextField를 생성
 		jta = new JTextArea();
@@ -61,39 +57,49 @@ public class UDPChatClient extends JFrame implements ActionListener, Runnable{
 		//프레임이 화면에 보이도록 설정
 		setVisible(true);
 		
+		try {
+			//통신을 위해 서버에 접속을 요청
+			Socket socket = new Socket("172.30.1.4",9003);
+			
+			//입출력을 위한 스트림 생성
+			is = socket.getInputStream();
+			os = socket.getOutputStream();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 		
+		//서버가 보내오는 데이터를 버튼과 상관없이 계속하여 받기위한 스레드 클래스를 생성
+		//inner클래스는 마치 outterclass의 맴버처럼 동작
+		//outter클래스의 맴버에 자유롭게 접근 할 수 있음
+		class ClientThread extends Thread{
+			byte []data = new byte[100];
+			public void run() {
+				while(true) {
+					try {
+						//서버가 보내온 데이터를 수신
+						is.read(data);
+						
+						//수신한 데이터를 문자열로 만들기
+						String msg = new String(data);
+						
+						//수신한 문자열을 TextArea에 추가
+						jta.append(msg.trim()+"\n");
+						
+					}catch (Exception e) {
+						System.out.println("예외발생:"+e.getMessage());
+					}
+				}
+			}//end run
+		}//end innerclass
 		
-	
-		//Runnable은 Thread로 포장
-		Thread t = new Thread(this);
-		t.start();
+		//서버로부터 계속하여 수신된 메세지를 받기위한 스레드 객체 생성하고 가동
+		ClientThread ct = new ClientThread();
+		ct.start();
 		
 	}//end 생성자
 	
 	public static void main(String[] args) {
-		DatagramSocket socket;
-		DatagramPacket receiver,sender;
-		InetAddress ia;
-		int port;
-		String ip;
-		BufferedReader br;
-		
-		try {
-			ip = args[0];
-			port = Integer.parseInt(args[1]);
-			
-			ia = InetAddress.getByName(ip);
-			socket = new DatagramSocket();
-			br = new BufferedReader(new InputStreamReader(System.in));
-			
-			while(true) {
-				String msg = "";
-				
-			}
-			
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
+		new TCPChatClient();
 	}
 
 	@Override
@@ -110,9 +116,7 @@ public class UDPChatClient extends JFrame implements ActionListener, Runnable{
 		}catch(Exception ex){
 			System.out.println("예외발생:"+ex.getMessage());
 		}
+		
 	}
 
-	
-
-	}
 }
