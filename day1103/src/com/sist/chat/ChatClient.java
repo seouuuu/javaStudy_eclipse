@@ -1,4 +1,4 @@
-package com.sist.tcp;
+package com.sist.chat;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,7 +13,7 @@ import java.net.Socket;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TCPChatClient extends JFrame implements ActionListener{
+public class ChatClient extends JFrame implements ActionListener{
 
 	//대화내용을 출력할 TextArea를 맴버변수로 만들기
 	JTextArea jta;
@@ -25,11 +25,11 @@ public class TCPChatClient extends JFrame implements ActionListener{
 	InputStream is;
 	OutputStream os;
 	
-	public TCPChatClient(){
+	public ChatClient(){
 		
 		//맴버변수 TextArea와 TextField를 생성
 		jta = new JTextArea();
-		jtf = new JTextField(50);
+		jtf = new JTextField();
 		
 		//전송을 위한 버튼 생성
 		JButton btn = new JButton("전송");
@@ -39,8 +39,12 @@ public class TCPChatClient extends JFrame implements ActionListener{
 		
 		//TextField와 버튼을 담기위한 패널 생성
 		JPanel p = new JPanel();
-		p.add(jtf);
-		p.add(btn);
+		
+		//패널의 레이아웃방식 BorderLayout으로 변경
+		p.setLayout(new BorderLayout());
+		
+		p.add(jtf, BorderLayout.CENTER);
+		p.add(btn, BorderLayout.EAST);
 		
 		//TextArea를 Scrollpane으로 감싸기
 		JScrollPane jsp = new JScrollPane(jta);
@@ -57,9 +61,11 @@ public class TCPChatClient extends JFrame implements ActionListener{
 		//프레임이 화면에 보이도록 설정
 		setVisible(true);
 		
+		setTitle("YOON TALK");
+		
 		try {
 			//통신을 위해 서버에 접속을 요청
-			Socket socket = new Socket("localhost",9003);
+			Socket socket = new Socket("172.30.1.4",9003);
 			
 			//입출력을 위한 스트림 생성
 			is = socket.getInputStream();
@@ -71,8 +77,16 @@ public class TCPChatClient extends JFrame implements ActionListener{
 		//서버가 보내오는 데이터를 버튼과 상관없이 계속하여 받기위한 스레드 클래스를 생성
 		//inner클래스는 마치 outterclass의 맴버처럼 동작
 		//outter클래스의 맴버에 자유롭게 접근 할 수 있음
-		class ClientThread extends Thread{
+		
+		
+		//서버로부터 계속하여 수신된 메세지를 받기위한 스레드 객체 생성하고 가동
+		//보통 inner 클래스를 만들때 클래스이름을 정식으로 정해주고 만들수도 있지만 대부분의 경우 
+		//클래스이름을 정하지 않고 이름없는 클래스를 정의하면서 바로 객체 생성
+		//new 인터페이스이름(){메소드이름(){}}
+		//인터페이스를 구현한 클래스를 정의하고 바로 객체 생성
+		new Thread(new Runnable() {
 			byte []data = new byte[100];
+			@Override
 			public void run() {
 				while(true) {
 					try {
@@ -89,17 +103,13 @@ public class TCPChatClient extends JFrame implements ActionListener{
 						System.out.println("예외발생:"+e.getMessage());
 					}
 				}
-			}//end run
-		}//end innerclass
-		
-		//서버로부터 계속하여 수신된 메세지를 받기위한 스레드 객체 생성하고 가동
-		ClientThread ct = new ClientThread();
-		ct.start();
-		
+				
+			}
+		}).start();
 	}//end 생성자
 	
 	public static void main(String[] args) {
-		new TCPChatClient();
+		new ChatClient();
 	}
 
 	@Override
@@ -118,5 +128,6 @@ public class TCPChatClient extends JFrame implements ActionListener{
 		}
 		
 	}
-
 }
+
+

@@ -65,7 +65,7 @@ public class ChatClient extends JFrame implements ActionListener{
 		
 		try {
 			//통신을 위해 서버에 접속을 요청
-			Socket socket = new Socket("172.30.1.4",9003);
+			Socket socket = new Socket("localhost",9003);
 			
 			//입출력을 위한 스트림 생성
 			is = socket.getInputStream();

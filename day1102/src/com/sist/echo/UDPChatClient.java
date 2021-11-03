@@ -120,7 +120,7 @@ public class UDPChatClient extends JFrame implements ActionListener{
 		byte []data = msg.getBytes();
 		
 		//InetAddress °´Ã¼ »ý¼º
-		InetAddress addr = InetAddress.getByName("172.30.1.4");
+		InetAddress addr = InetAddress.getByName("localhost");
 		
 		int port = 9005;
 		
