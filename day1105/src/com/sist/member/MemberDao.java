@@ -12,7 +12,7 @@ public class MemberDao {
 	String user = "c##sist";
 	String pwd = "sist";
 	
-	public int insertMember( BookVo g ) {
+	public int insertMember( MemberVo m ) {
 		
 		int re = -1;
 		String sql = "insert into member values(?,?,?,?,?)";
@@ -23,11 +23,11 @@ public class MemberDao {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url,user,pwd);
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, g.getNo());
-			pstmt.setString(2, g.getName());
-			pstmt.setString(3, g.getAddr());
-			pstmt.setInt(4, g.getAge());
-			pstmt.setString(5, g.getPhone());
+			pstmt.setInt(1, m.getNo());
+			pstmt.setString(2, m.getName());
+			pstmt.setString(3, m.getAddr());
+			pstmt.setInt(4, m.getAge());
+			pstmt.setString(5, m.getPhone());
 			
 			re = pstmt.executeUpdate();
 				
@@ -49,7 +49,7 @@ public class MemberDao {
 		return re;
 	}
 	
-	public int updateMember(BookVo m) {
+	public int updateMember(MemberVo m) {
 		int re = -1;
 		String sql = "update member set name=?,addr=?,age=?,phone=? where no=?";
 		Connection conn = null;
@@ -112,8 +112,8 @@ public class MemberDao {
 		return re;
 	}
 	
-	public ArrayList<BookVo> listMember(){
-		ArrayList<BookVo> list = new ArrayList<BookVo>();
+	public ArrayList<MemberVo> listMember(){
+		ArrayList<MemberVo> list = new ArrayList<MemberVo>();
 		String sql = "select * from member order by no";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -131,7 +131,7 @@ public class MemberDao {
 				int age = rs.getInt(4);
 				String phone = rs.getString(5);
 				
-				list.add(new BookVo(no,name,addr,age,phone));
+				list.add(new MemberVo(no,name,addr,age,phone));
 			}
 			
 		}catch (Exception e) {

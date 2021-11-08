@@ -1,12 +1,12 @@
 package com.sist.member;
 
-public class BookVo {
+public class MemberVo {
 	private int no;
 	private String name;
 	private String addr;
 	private int age;
 	private String phone;
-	public BookVo(int no, String name, String addr, int age, String phone) {
+	public MemberVo(int no, String name, String addr, int age, String phone) {
 		super();
 		this.no = no;
 		this.name = name;
@@ -14,7 +14,7 @@ public class BookVo {
 		this.age = age;
 		this.phone = phone;
 	}
-	public BookVo() {
+	public MemberVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

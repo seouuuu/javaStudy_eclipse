@@ -35,8 +35,8 @@ public class MemberTest extends JFrame {
 	
 	public void printMember() {
 		rowData.clear();
-		ArrayList<BookVo> list = dao.listMember();
-		for(BookVo m : list) {
+		ArrayList<MemberVo> list = dao.listMember();
+		for(MemberVo m : list) {
 			Vector v = new Vector();
 			v.add(m.getNo());
 			v.add(m.getName());
@@ -67,7 +67,6 @@ public class MemberTest extends JFrame {
 		jtf_addr = new JTextField();
 		jtf_age = new JTextField();
 		jtf_phone = new JTextField();
-		
 		
 		JPanel p = new JPanel();
 		p.setLayout(new GridLayout(5,2));
@@ -117,7 +116,7 @@ public class MemberTest extends JFrame {
 				int age = Integer.parseInt(jtf_age.getText());
 				String phone = jtf_phone.getText();
 				
-				BookVo m = new BookVo(no,name,addr,age,phone);
+				MemberVo m = new MemberVo(no,name,addr,age,phone);
 				int re = dao.insertMember(m);
 				if(re == 1) {
 					System.out.println("회원등록에 성공하였습니다.");
@@ -147,7 +146,7 @@ public class MemberTest extends JFrame {
 				String addr = jtf_addr.getText();
 				int age = Integer.parseInt(jtf_age.getText());
 				String phone = jtf_phone.getText();
-				BookVo m = new BookVo(no,name,addr,age,phone);
+				MemberVo m = new MemberVo(no,name,addr,age,phone);
 				
 				int re = dao.updateMember(m);
 				if(re == 1) {
